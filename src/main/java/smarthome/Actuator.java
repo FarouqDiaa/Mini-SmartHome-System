@@ -37,14 +37,26 @@ public class Actuator {
 
             while (input.hasNextLine()) {
                 String command = input.nextLine();
+                Status previousStatus = status;
+
                 if ("TURN_ON".equalsIgnoreCase(command)) {
-                    status = Status.ON;
-                    System.out.println("Actuator " + actuatorId + " turned ON");
-                    out.println("Actuator " + actuatorId + " is now ON");
+                    if (status == Status.ON) {
+                        System.out.println("Actuator " + actuatorId + " is already ON");
+                        out.println("Actuator " + actuatorId + " is already ON");
+                    } else {
+                        status = Status.ON;
+                        System.out.println("Actuator " + actuatorId + " turned ON");
+                        out.println("Actuator " + actuatorId + " changed from " + previousStatus + " to ON");
+                    }
                 } else if ("TURN_OFF".equalsIgnoreCase(command)) {
-                    status = Status.OFF;
-                    System.out.println("Actuator " + actuatorId + " turned OFF");
-                    out.println("Actuator " + actuatorId + " is now OFF");
+                    if (status == Status.OFF) {
+                        System.out.println("Actuator " + actuatorId + " is already OFF");
+                        out.println("Actuator " + actuatorId + " is already OFF");
+                    } else {
+                        status = Status.OFF;
+                        System.out.println("Actuator " + actuatorId + " turned OFF");
+                        out.println("Actuator " + actuatorId + " changed from " + previousStatus + " to OFF");
+                    }
                 } else {
                     System.out.println("Unknown command received: " + command);
                     out.println("Unknown command received");

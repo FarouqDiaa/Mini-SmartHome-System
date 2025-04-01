@@ -48,6 +48,10 @@ public class SmarthomeApplication {
             deviceId = in.readLine();
             if (deviceId != null && !deviceId.isBlank()) {
                 synchronized (actuators) {
+                    if (actuators.containsKey(deviceId)) {
+                        System.out.println("Device ID " + deviceId + " is already in use. Rejecting connection.");
+                        return;
+                    }
                     actuators.put(deviceId, out);
                 }
                 System.out.println("Added " + deviceId);
