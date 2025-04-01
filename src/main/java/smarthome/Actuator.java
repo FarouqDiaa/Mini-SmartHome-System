@@ -19,37 +19,10 @@ public class Actuator {
     public Actuator(String actuatorId, Status status) {
         this.actuatorId = actuatorId;
         this.status = status;
-        connectToServer();
-        listenForCommands();
+        handleConnection();
     }
 
-    public void connectToServer() {
-        Socket socket = null;
-        PrintWriter out = null;
-        try {
-            socket = new Socket(hostName, portNumber);
-            out = new PrintWriter(socket.getOutputStream(), true);
-
-            String actuatorOutput = "Actuator connected with id: " + actuatorId + " and status: " + status;
-            out.println(actuatorOutput);
-
-        } catch (IOException e) {
-            System.err.println("Error connecting to server: " + e.getMessage());
-        } finally {
-            if (out != null) {
-                out.close();
-            }
-            if (socket != null) {
-                try {
-                    socket.close();
-                } catch (IOException e) {
-                    System.err.println("Error closing socket: " + e.getMessage());
-                }
-            }
-        }
-    }
-
-    public void listenForCommands() {
+    public void handleConnection() {
         Socket socket = null;
         PrintWriter out = null;
         java.util.Scanner input = null;
@@ -57,6 +30,9 @@ public class Actuator {
             socket = new Socket(hostName, portNumber);
             out = new PrintWriter(socket.getOutputStream(), true);
             input = new java.util.Scanner(socket.getInputStream());
+
+            String actuatorOutput = "Actuator connected with id: " + actuatorId + " and status: " + status;
+            out.println(actuatorOutput);
 
             while (input.hasNextLine()) {
                 String command = input.nextLine();
@@ -74,7 +50,7 @@ public class Actuator {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Error listening for commands: " + e.getMessage());
+            System.err.println("Error handling connection: " + e.getMessage());
         } finally {
             if (input != null) {
                 input.close();
