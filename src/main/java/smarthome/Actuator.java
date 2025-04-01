@@ -7,7 +7,7 @@ import java.net.Socket;
 public class Actuator {
 
     private static final String hostName = "localhost";
-    private static final int portNumber = 5000;
+    private static final int portNumber = 5001;
 
     private String actuatorId;
     private Status status;

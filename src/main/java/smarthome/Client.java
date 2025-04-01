@@ -27,7 +27,7 @@ public class Client {
             }
 
             try {
-                URL url = new URL("http://localhost:5001/actuators/" + deviceId + "/updateStatus");
+                URL url = new URL("http://localhost:8080/actuators/" + deviceId + "/updateStatus");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");
