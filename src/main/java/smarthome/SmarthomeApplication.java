@@ -67,14 +67,14 @@ public class SmarthomeApplication {
 
         } catch (IOException e) {
             System.err.println("Error handling device: " + e.getMessage());
-        } finally {
-            if (deviceId != null) {
-                synchronized (actuators) {
-                    actuators.remove(deviceId);
-                }
-                System.out.println(deviceId + " disconnected");
-            }
         }
+        if (deviceId != null) {
+            synchronized (actuators) {
+                actuators.remove(deviceId);
+            }
+            System.out.println(deviceId + " disconnected");
+        }
+
     }
 }
 

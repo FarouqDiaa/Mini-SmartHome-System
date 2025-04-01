@@ -78,6 +78,9 @@ public class Actuator {
                     System.err.println("Error closing socket: " + e.getMessage());
                 }
             }
+            System.out.println("Actuator " + actuatorId + " disconnected from server");
+            System.out.println("Please choose another name for the actuator.");
+            System.out.println("Exiting the program.");
         }
     }
 
