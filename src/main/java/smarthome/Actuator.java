@@ -3,6 +3,7 @@ package smarthome;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Actuator {
 
@@ -25,14 +26,14 @@ public class Actuator {
     public void handleConnection() {
         Socket socket = null;
         PrintWriter out = null;
-        java.util.Scanner input = null;
+        Scanner input = null;
         try {
             socket = new Socket(hostName, portNumber);
             out = new PrintWriter(socket.getOutputStream(), true);
-            input = new java.util.Scanner(socket.getInputStream());
+            input = new Scanner(socket.getInputStream());
 
-            String actuatorOutput = "Actuator connected with id: " + actuatorId + " and status: " + status;
-            out.println(actuatorOutput);
+            out.println(actuatorId);
+            System.out.println("Actuator " + actuatorId + " connected to server");
 
             while (input.hasNextLine()) {
                 String command = input.nextLine();
@@ -66,5 +67,28 @@ public class Actuator {
                 }
             }
         }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter Actuator ID: ");
+        String actuatorId = scanner.nextLine();
+
+        System.out.print("Enter Actuator Status (ON/OFF): ");
+        String statusInput = scanner.nextLine();
+        Status status;
+
+        if ("ON".equalsIgnoreCase(statusInput)) {
+            status = Status.ON;
+        } else if ("OFF".equalsIgnoreCase(statusInput)) {
+            status = Status.OFF;
+        } else {
+            System.out.println("Invalid status. Defaulting to OFF.");
+            status = Status.OFF;
+        }
+
+        new Actuator(actuatorId, status);
+        scanner.close();
     }
 }
