@@ -1,4 +1,3 @@
-package smarthome;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -27,7 +26,7 @@ public class Client {
             }
 
             try {
-                URL url = new URL("http://192.168.1.23:8080/actuators/" + deviceId + "/updateStatus");
+                URL url = new URL("http://192.168.1.7:8080/actuators/" + deviceId + "/updateStatus");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");

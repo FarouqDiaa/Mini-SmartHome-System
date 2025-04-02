@@ -1,5 +1,3 @@
-package smarthome;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -7,7 +5,7 @@ import java.util.Scanner;
 
 public class Actuator {
 
-    private static final String hostName = "192.168.1.23";
+    private static final String hostName = "192.168.1.7";
     private static final int portNumber = 5001;
 
     private String actuatorId;
